@@ -32,10 +32,11 @@ CREATE TABLE armazem (
 );
 
 CREATE TABLE fornecedor_produto (
-    cod_fornecedor  INTEGER         CONSTRAINT pk_fornecedor_produto_cod_fornecedor PRIMARY KEY,
-    cod_produto     INTEGER         CONSTRAINT pk_fornecedor_produto_cod_produto    PRIMARY KEY,
+    cod_fornecedor  INTEGER,
+    cod_produto     INTEGER,
     preco_venda     NUMERIC(10,2)   CONSTRAINT nn_fornecedor_produto_preco_venda    NOT NULL,
-    desconto        DECIMAL(5,2)    CONSTRAINT nn_fornecedor_produto_desconto       NOT NULL
+    desconto        DECIMAL(5,2)    CONSTRAINT nn_fornecedor_produto_desconto       NOT NULL,
+    CONSTRAINT pk_fornecedor_produto_cod_fornecedor_cod_produto PRIMARY KEY (cod_fornecedor, cod_produto)
 );
 
 ALTER TABLE fornecedor_produto ADD CONSTRAINT fk_fornecedor_produto_cod_fornecedor  FOREIGN KEY (cod_fornecedor)  REFERENCES fornecedor(cod_fornecedor);
@@ -43,12 +44,13 @@ ALTER TABLE fornecedor_produto ADD CONSTRAINT fk_fornecedor_produto_cod_produto 
 
 
 CREATE TABLE armazem_produto (
-    cod_armazem     INTEGER         CONSTRAINT pk_armazem_produto_cod_armazem       PRIMARY KEY,
-    cod_produto     INTEGER         CONSTRAINT pk_armazem_produto_cod_produto       PRIMARY KEY,
+    cod_armazem     INTEGER,
+    cod_produto     INTEGER,
     stock           INTEGER         CONSTRAINT nn_armazem_produto_stock             NOT NULL,
     stock_minimo    INTEGER         CONSTRAINT nn_armazem_produto_stock_minimo      NOT NULL,
     corredor        INTEGER         CONSTRAINT nn_armazem_produto_corredor          NOT NULL,
-    prateleira      INTEGER         CONSTRAINT nn_armazem_produto_prateleira        NOT NULL
+    prateleira      INTEGER         CONSTRAINT nn_armazem_produto_prateleira        NOT NULL,
+    CONSTRAINT pk_armazem_produto_cod_armazem_cod_produto PRIMARY KEY (cod_armazem, cod_produto)
 );
 
 ALTER TABLE armazem_produto ADD CONSTRAINT fk_armazem_produto_cod_armazem     FOREIGN KEY (cod_armazem) REFERENCES armazem(cod_armazem);
@@ -76,11 +78,12 @@ CREATE TABLE ordem_compra (
 );
 
 CREATE TABLE ordem_compra_produto (
-    nr_ordem                INTEGER         CONSTRAINT pk_ordem_compra_produto                          PRIMARY KEY,
-    linha                   INTEGER         CONSTRAINT pk_ordem_compra_produto_linha                    PRIMARY KEY,
+    nr_ordem                INTEGER,
+    linha                   INTEGER,
     cod_produto             INTEGER         REFERENCES produto(cod_produto),
     quantidade_solicitada   INTEGER         CONSTRAINT nn_ordem_compra_produto_quantidade_solicitada    NOT NULL,
-    desconto_pedido         DECIMAL(5,2)    CONSTRAINT nn_ordem_compra_produto_desconto_pedido          NOT NULL
+    desconto_pedido         DECIMAL(5,2)    CONSTRAINT nn_ordem_compra_produto_desconto_pedido          NOT NULL,
+    CONSTRAINT pk_ordem_compra_produto_nr_ordem_linha PRIMARY KEY (nr_ordem, linha)
 );
 
 ALTER TABLE ordem_compra_produto ADD CONSTRAINT fk_ordem_compra_produto_nr_ordem    FOREIGN KEY (nr_ordem) REFERENCES ordem_compra(nr_ordem);
