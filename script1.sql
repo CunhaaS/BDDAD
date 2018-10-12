@@ -12,7 +12,7 @@ DROP TABLE ordem_compra_produto   CASCADE CONSTRAINTS PURGE;
 CREATE TABLE fornecedor (
     cod_fornecedor  INTEGER         CONSTRAINT pk_fornecedor_cod_fornecedor PRIMARY KEY,
     nome            VARCHAR(20)     CONSTRAINT nn_fornecedor_nome           NOT NULL,
-    morada          VARCHAR(50)     CONSTRAINT nn_fornecedor_morada         NOT NULL,
+    morada          VARCHAR(100)     CONSTRAINT nn_fornecedor_morada         NOT NULL,
     nif             NUMERIC(9)      CONSTRAINT nn_fornecedor_nif            NOT NULL,
     telefone        NUMERIC(9)      CONSTRAINT nn_fornecedor_telefone       NOT NULL
 );
@@ -27,7 +27,7 @@ CREATE TABLE produto (
 CREATE TABLE armazem (
     cod_armazem     INTEGER         CONSTRAINT pk_armazem_cod_armazem       PRIMARY KEY,
     nome            VARCHAR(20)     CONSTRAINT nn_armazem_nome              NOT NULL,
-    morada          VARCHAR(50)     CONSTRAINT nn_armazem_morada            NOT NULL,
+    morada          VARCHAR(100)     CONSTRAINT nn_armazem_morada            NOT NULL,
     cidade          VARCHAR(20)     CONSTRAINT nn_armazem_cidade            NOT NULL
 );
 
@@ -58,9 +58,10 @@ ALTER TABLE armazem_produto ADD CONSTRAINT fk_armazem_produto_cod_produto     FO
 CREATE TABLE empregado (
     cod_empregado   INTEGER         CONSTRAINT pk_empregado_cod_empregado   PRIMARY KEY,
     cod_supervisor  INTEGER         REFERENCES empregado(cod_empregado),
+    cod_armazem     INTEGER         REFERENCES armazem(cod_armazem),
     nome            VARCHAR(20)     CONSTRAINT nn_empregado_nome            NOT NULL,
-    morada          VARCHAR(30)     CONSTRAINT nn_empregado_morada          NOT NULL,
-    samario_semanal NUMERIC(10,2)   CONSTRAINT nn_empregado_salario_semanal NOT NULL,
+    morada          VARCHAR(100)     CONSTRAINT nn_empregado_morada          NOT NULL,
+    salario_semanal NUMERIC(10,2)   CONSTRAINT nn_empregado_salario_semanal NOT NULL,
     formacao        VARCHAR(30) --Nao sei se esta correto
 );
 
