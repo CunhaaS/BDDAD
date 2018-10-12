@@ -64,7 +64,7 @@ CREATE TABLE empregado (
     nome            VARCHAR(20)     CONSTRAINT nn_empregado_nome            NOT NULL,
     morada          VARCHAR(100)    CONSTRAINT nn_empregado_morada          NOT NULL,
     salario_semanal NUMERIC(10,2)   CONSTRAINT nn_empregado_salario_semanal NOT NULL,
-    formacao        VARCHAR(30) 
+    formacao        VARCHAR(30)
 );
 
 CREATE TABLE ordem_compra (
@@ -99,16 +99,16 @@ INSERT INTO fornecedor VALUES(6,'Arnaldo Gomes','8486 W. Peachtree Ave. De Pere;
 
 --produtos
 INSERT INTO produto VALUES(1,'parafuso pequeno',20,3.50);
-INSERT INTO produto VALUES(2,'parafuso médio',20,4.50);
+INSERT INTO produto VALUES(2,'parafuso medio',20,4.50);
 INSERT INTO produto VALUES(3,'parafuso grande',20,6.00);
 INSERT INTO produto VALUES(4,'porca',10,5.00);
 INSERT INTO produto VALUES(5,'chave allen',1,7.15);
 INSERT INTO produto VALUES(6,'corda plastico',1,5.32);
 INSERT INTO produto VALUES(7,'corda fibra',1,8.30);
-INSERT INTO produto VALUES(8,'braçadeiras',10,4.17);
+INSERT INTO produto VALUES(8,'bracadeiras',10,4.17);
 INSERT INTO produto VALUES(9,'ar condicionado',1,68.79);
-INSERT INTO produto VALUES(10,'tábua de madeira',5,21.35);
-INSERT INTO produto VALUES(11,'frigorífico',1,455.99);
+INSERT INTO produto VALUES(10,'tabua de madeira',5,21.35);
+INSERT INTO produto VALUES(11,'frigorifico',1,455.99);
 INSERT INTO produto VALUES(12,'betoneira',1,855);
 
 --produtos dos fornecedores
@@ -150,11 +150,12 @@ INSERT INTO empregado VALUES(2,NULL,1,'Carlos Vitoria','88 NE. 10th St. Quincy, 
 INSERT INTO empregado VALUES(1,2,1,'Vitor Pereira','309 Poplar Ave. Middleburg, FL 32068',400,'Organização');
 INSERT INTO empregado VALUES(3,2,1,'Guilherme Oliveira','8394 River Drive Livonia, MI 48150',298,'Marketing');
 INSERT INTO empregado VALUES(6,NULL,2,'Miguel Azevedo','635 George Drive Conyers, GA 30012',790,'Redes');
-INSERT INTO empregado VALUES(4,6,2,'Jose António','40 Baker Road Little Rock, AR 72209',546,'Organização');
+INSERT INTO empregado VALUES(4,6,2,'Jose Antonio','40 Baker Road Little Rock, AR 72209',546,'Organização');
 INSERT INTO empregado VALUES(5,6,2,'Pedro Marques','800 SE. Willow Dr. Goose Creek, SC 29445',456,'Informática');
-INSERT INTO empregado VALUES(8,NULL,3,'Mário Silva','127 SE. Virginia Street Roswell, GA 30075',1000,'Iluminação');
-INSERT INTO empregado VALUES(7,3,3,'João Maria','524 West Randall Mill Drive Marysville, OH 43040',320,'Electricidade');
+INSERT INTO empregado VALUES(8,NULL,3,'Mario Silva','127 SE. Virginia Street Roswell, GA 30075',1000,'Iluminação');
+INSERT INTO empregado VALUES(7,3,3,'Joao Maria','524 West Randall Mill Drive Marysville, OH 43040',320,'Electricidade');
 INSERT INTO empregado VALUES(9,8,3,'Filipe Silva','52 Rock Maple Circle Oak Lawn, IL 60453',597,'Gestão');
+INSERT INTO empregado VALUES(10,8,3,'Maria Leal','Rua das flores 456512, IF 31343',786,'Canalização');
 
 --ordens de compra
 INSERT INTO ordem_compra VALUES(1,1,1,TO_TIMESTAMP('11-08-2017 10:20','dd-mm-yyyy hh24:mi'),1500,TO_TIMESTAMP('18-08-2017 18:29','dd-mm-yyyy hh24:mi'),1);
