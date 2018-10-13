@@ -60,7 +60,7 @@ HAVING
             DE1.estado = 2 and DE1.cidade Like 'Porto'
         GROUP BY
             DE1.cod_armazem
-    )
+    );
 
 --e)
 
