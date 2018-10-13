@@ -1,7 +1,7 @@
 --a)
 SELECT (SELECT AVG(E.salario_semanal)
-        FROM empregado)
-,(E.salario_semanal * 60) as Salario_Anual
+        FROM empregado) AS media_salario_semanal
+,(E.salario_semanal * 60) AS Salario_Anual
 FROM empregado E
 WHERE E.cod_armazem = (
         SELECT A.cod_armazem
@@ -43,22 +43,7 @@ WHERE APA.cod_armazem = APB.cod_armazem
 
 --d)
 
-    SELECT DISTINCT(nome), cod_armazem, morada, cidade
-    FROM (SELECT a.* FROM armazem a
-    INNER JOIN empregado e ON a.cod_armazem = e.cod_armazem
-    INNER JOIN Ordem_compra oc ON oc.cod_empregado = e.cod_empregado
-    WHERE UPPER(cidade) NOT LIKE 'PORTO' AND (SELECT Count(*) AS numero_total_ordem_compra
-                                               FROM  Ordem_compra o
-                                               INNER JOIN Empregado e ON o.cod_empregado = e.cod_empregado
-                                               INNER JOIN armazem a ON e.cod_armazem = a.cod_armazem
-                                               WHERE estado = 2 AND TO_CHAR(oc.data_compra,'DD-MM-YYYY') BETWEEN '01/03/2018'
-                                               AND '15/10/2018' GROUP BY e.cod_empregado) > (SELECT Count(*) AS numero_total_ordem_compras
-                                                                                             FROM  Ordem_compra o
-                                                                                             INNER JOIN Empregado e ON o.cod_empregado = e.cod_empregado
-                                                                                             INNER JOIN armazem a ON e.cod_armazem = a.cod_armazem
-                                                                                             WHERE UPPER(a.cidade) LIKE 'PORTO'
-                                                                                                AND TO_CHAR(oc.data_compra,'DD-MM-YYYY') BETWEEN '01/03/2018'
-                                                                                                AND '15/10/2018' GROUP BY a.cidade));
+                              
 
 
 --e)
@@ -135,7 +120,7 @@ SELECT *
 FROM ordem_compra
 WHERE TO_CHAR(data_compra,'MM') BETWEEN 6 AND 8
     AND TO_CHAR(data_compra,'YYYY') = 2018
-    AND estado = 2
+    AND estado = 3
     AND (cast(data_entrega AS DATE) - cast(data_compra AS DATE)) > 10
     AND TO_CHAR(data_compra,'HH') <10;
 --j)

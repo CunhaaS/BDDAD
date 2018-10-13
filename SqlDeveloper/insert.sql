@@ -82,7 +82,7 @@ INSERT INTO ordem_compra VALUES(10,5,1,TO_TIMESTAMP('09-08-2015 16:20','dd-mm-yy
 INSERT INTO ordem_compra VALUES(11,6,2,TO_TIMESTAMP('23-05-2018 14:54','dd-mm-yyyy hh24:mi'),6789,TO_TIMESTAMP('30-05-2018 20:40','dd-mm-yyyy hh24:mi'),2);
 INSERT INTO ordem_compra VALUES(12,6,6,TO_TIMESTAMP('13-01-2018 14:10','dd-mm-yyyy hh24:mi'),126,TO_TIMESTAMP('20-01-2018 17:30','dd-mm-yyyy hh24:mi'),1);
 INSERT INTO ordem_compra VALUES(13,6,6,TO_TIMESTAMP('26-07-2018 08:10','dd-mm-yyyy hh24:mi'),126,TO_TIMESTAMP('10-08-2018 17:30','dd-mm-yyyy hh24:mi'),2);
-
+INSERT INTO ordem_compra VALUES(14,3,4,TO_TIMESTAMP('26-07-2018 19:43','dd-mm-yyyy hh24:mi'),456,TO_TIMESTAMP('11-08-2018 17:30','dd-mm-yyyy hh24:mi'),2);
 --ordens de compra de um produto
 INSERT INTO ordem_compra_produto VALUES(1,43,1,1700,22);
 INSERT INTO ordem_compra_produto VALUES(2,2,2,330,10);
