@@ -147,15 +147,15 @@ INSERT INTO armazem_produto VALUES(3,12,15,5,1,2);
 --empregados
 
 INSERT INTO empregado VALUES(2,NULL,1,'Carlos Vitoria','88 NE. 10th St. Quincy, MA 02169',600,'Gestao');
-INSERT INTO empregado VALUES(1,2,1,'Vitor Pereira','309 Poplar Ave. Middleburg, FL 32068',400,'Organizaçao');
+INSERT INTO empregado VALUES(1,2,1,'Vitor Pereira','309 Poplar Ave. Middleburg, FL 32068',400,'Organizacao');
 INSERT INTO empregado VALUES(3,2,1,'Guilherme Oliveira','8394 River Drive Livonia, MI 48150',298,'Marketing');
 INSERT INTO empregado VALUES(6,NULL,2,'Miguel Azevedo','635 George Drive Conyers, GA 30012',790,'Redes');
-INSERT INTO empregado VALUES(4,6,2,'Jose Antonio','40 Baker Road Little Rock, AR 72209',546,'Organização');
+INSERT INTO empregado VALUES(4,6,2,'Jose Antonio','40 Baker Road Little Rock, AR 72209',546,'Organizacao');
 INSERT INTO empregado VALUES(5,6,2,'Pedro Marques','800 SE. Willow Dr. Goose Creek, SC 29445',456,'Informatica');
-INSERT INTO empregado VALUES(8,NULL,3,'Mario Silva','127 SE. Virginia Street Roswell, GA 30075',1000,'Iluminaçao');
+INSERT INTO empregado VALUES(8,NULL,3,'Mario Silva','127 SE. Virginia Street Roswell, GA 30075',1000,'Iluminacao');
 INSERT INTO empregado VALUES(7,3,3,'Joao Maria','524 West Randall Mill Drive Marysville, OH 43040',320,'Electricidade');
 INSERT INTO empregado VALUES(9,8,3,'Filipe Silva','52 Rock Maple Circle Oak Lawn, IL 60453',597,'Gestao');
-INSERT INTO empregado VALUES(10,8,3,'Maria Leal','Rua das flores 456512, IF 31343',786,'Canalização');
+INSERT INTO empregado VALUES(10,8,3,'Maria Leal','Rua das flores 456512, IF 31343',786,'Canalizacao');
 
 --ordens de compra
 INSERT INTO ordem_compra VALUES(1,1,1,TO_TIMESTAMP('11-08-2017 10:20','dd-mm-yyyy hh24:mi'),1500,TO_TIMESTAMP('18-08-2017 18:29','dd-mm-yyyy hh24:mi'),1);
