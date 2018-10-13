@@ -42,8 +42,25 @@ WHERE APA.cod_armazem = APB.cod_armazem
 );
 
 --d)
+SELECT *
+FROM ARMAZEM WHERE cod_armazem IN (
+         SELECT cod_armazem FROM(
+                            SELECT A.cod_armazem ,COUNT(*) AS NUM_VENDAS
+                            FROM ORDEMCOMPRA OC, ARMAZEM A, Empregado Emp
+                            WHERE OC.cod_empregado = Emp.cod_empregado
+                                              AND Emp.cod_armazem = A.cod_armazem
+                                              AND OC.ESTADO = 2
+                            GROUP BY A.cod_armazem
+                            HAVING COUNT(*) > (
+                                            SELECT MAX(NUM_VENDAS) FROM(
+                                                                   SELECT COUNT(*) AS NUM_VENDAS, A.cod_armazem 
+                                                                   FROM ORDEMCOMPRA OC, ARMAZEM A, Empregado Emp
+                                                                   WHERE OC.cod_empregado = Emp.cod_empregado
+                                                                                AND Emp.cod_armazem = A.cod_armazem
+                                                                                AND A.cidade = 'Porto' AND OC.data_compra BETWEEN TO_DATE('2018-03-01', 'YYYY-MM-DD') AND TO_DATE('2018-10-15', 'YYYY-MM-DD') AND OC.estado = 2
+                                                                   GROUP BY A.cod_armazem
+                                                                   ORDER BY (cod_armazem)) TEMP)));
 
-                              
 
 
 --e)
