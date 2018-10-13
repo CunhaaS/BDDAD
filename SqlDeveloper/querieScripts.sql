@@ -143,4 +143,17 @@ WHERE TO_CHAR(data_compra,'MM') BETWEEN 6 AND 8
     AND estado = 3
     AND (cast(data_entrega AS DATE) - cast(data_compra AS DATE)) > 10
     AND TO_CHAR(data_compra,'HH') <10;
+
 --j)
+SELECT
+    ((SELECT COUNT(nr_ordem) 
+    FROM ordem_compra 
+    WHERE cod_empregado=1223 AND estado=3) /
+    (SELECT COUNT(nr_ordem) 
+    FROM ordem_compra OC
+    INNER JOIN Empregado E ON E.cod_empregado = OC.cod_empregado
+    INNER JOIN Armazem A ON A.cod_armazem = A.cod_Armazem
+    WHERE UPPER(A.nome) LIKE 'TINTAS'
+    AND OC.valor_total BETWEEN 5000 AND 10000)) *100
+FROM Empregado
+FETCH FIRST 1 ROW ONLY;
