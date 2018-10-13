@@ -133,7 +133,7 @@ INSERT INTO armazem VALUES(3,'Isep','560 Bow Ridge Street Harlingen, TX 78552','
 --produtos nos armazens
 INSERT INTO armazem_produto VALUES(1,1,500,160,1,1);
 INSERT INTO armazem_produto VALUES(1,9,750,160,1,2);
-INSERT INTO armazem_produto VALUES(1,2,650,160,1,3);
+INSERT INTO armazem_produto VALUES(1,10,650,160,1,3);
 INSERT INTO armazem_produto VALUES(1,11,350,100,2,1);
 INSERT INTO armazem_produto VALUES(1,12,56,15,2,2);
 INSERT INTO armazem_produto VALUES(2,6,78,25,1,1);
