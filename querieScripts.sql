@@ -35,9 +35,10 @@ WHERE APA.cod_armazem = APB.cod_armazem
 with data_estado as (
 select A.cod_armazem, A.nome, A.cidade, OC.data_entrega,OC.estado from armazem A
 INNER JOIN Empregado E ON E.cod_armazem = A.cod_armazem
-INNER JOIN OrdemCompra OC ON OC.cod_empregado = E.cod_empregado
+INNER JOIN Ordem_Compra OC ON OC.cod_empregado = E.cod_empregado
 where (OC.data_entrega BETWEEN '01/03/2018' AND '15/10/2018'))
-select DE.cod_armazem from data_estado DE
+select DE.cod_armazem 
+from data_estado DE
 Group by DE.cod_armazem
 HAVING
     COUNT(*) = (
@@ -77,8 +78,11 @@ WHERE cod_produto IN (SELECT cod_produto
 
 
 --i)
-
-
-
-
+SELECT *
+FROM ordem_compra
+WHERE TO_CHAR(data_compra,'MM') BETWEEN 6 AND 8 
+    AND TO_CHAR(data_compra,'YYYY') = 2018
+    AND estado = 2
+    AND (cast(data_entrega AS DATE) - cast(data_compra AS DATE)) > 10
+    AND TO_CHAR(data_compra,'HH') <10;
 --j)

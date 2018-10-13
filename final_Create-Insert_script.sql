@@ -71,9 +71,9 @@ CREATE TABLE ordem_compra (
     nr_ordem        INTEGER         CONSTRAINT pk_ordem_compra_produto_nr_ordem PRIMARY KEY,
     cod_fornecedor  INTEGER         REFERENCES fornecedor(cod_fornecedor),
     cod_empregado   INTEGER         REFERENCES empregado(cod_empregado),
-    data_compra     DATE           CONSTRAINT nn_ordem_compra_data_compra      NOT NULL,
+    data_compra     TIMESTAMP           CONSTRAINT nn_ordem_compra_data_compra      NOT NULL,
     valor_total     NUMERIC(10,2)   CONSTRAINT nn_ordem_compra_valor_total      NOT NULL,
-    data_entrega    DATE            CONSTRAINT nn_ordem_compra_data_entrega     NOT NULL,
+    data_entrega    TIMESTAMP            CONSTRAINT nn_ordem_compra_data_entrega     NOT NULL,
     estado          INTEGER         CONSTRAINT nn_ordem_compra_estado           NOT NULL
 );
 
@@ -170,6 +170,7 @@ INSERT INTO ordem_compra VALUES(9,5,9,TO_TIMESTAMP('27-02-2016 20:30','dd-mm-yyy
 INSERT INTO ordem_compra VALUES(10,5,1,TO_TIMESTAMP('09-08-2015 16:20','dd-mm-yyyy hh24:mi'),1987,TO_TIMESTAMP('17-08-2015 13:59','dd-mm-yyyy hh24:mi'),1);
 INSERT INTO ordem_compra VALUES(11,6,2,TO_TIMESTAMP('23-05-2018 14:54','dd-mm-yyyy hh24:mi'),6789,TO_TIMESTAMP('30-05-2018 20:40','dd-mm-yyyy hh24:mi'),2);
 INSERT INTO ordem_compra VALUES(12,6,6,TO_TIMESTAMP('13-01-2018 14:10','dd-mm-yyyy hh24:mi'),126,TO_TIMESTAMP('20-01-2018 17:30','dd-mm-yyyy hh24:mi'),1);
+INSERT INTO ordem_compra VALUES(13,6,6,TO_TIMESTAMP('26-07-2018 08:10','dd-mm-yyyy hh24:mi'),126,TO_TIMESTAMP('10-08-2018 17:30','dd-mm-yyyy hh24:mi'),2);
 
 --ordens de compra de um produto
 INSERT INTO ordem_compra_produto VALUES(1,43,1,1700,20);
