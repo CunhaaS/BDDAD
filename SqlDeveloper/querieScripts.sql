@@ -65,7 +65,7 @@ FROM armazem WHERE cod_armazem IN (
                                                             AND TO_DATE('2018-10-15', 'YYYY-MM-DD')
                                                             AND OC.estado = 2
                                             GROUP BY A.cod_armazem
-                                            ORDER BY (cod_armazem))TEMP)));
+                                          ))));
 
 
 
@@ -150,10 +150,10 @@ WHERE TO_CHAR(data_compra,'MM') BETWEEN 6 AND 8
 
 --j)
 SELECT
-    ((SELECT COUNT(nr_ordem) 
-    FROM ordem_compra 
+    ((SELECT COUNT(nr_ordem)
+    FROM ordem_compra
     WHERE cod_empregado=1223 AND estado=3) /
-    (SELECT COUNT(nr_ordem) 
+    (SELECT COUNT(nr_ordem)
     FROM ordem_compra OC
     INNER JOIN Empregado E ON E.cod_empregado = OC.cod_empregado
     INNER JOIN Armazem A ON A.cod_armazem = A.cod_Armazem
