@@ -1,12 +1,12 @@
 --a)
-select (SELECT AVG(E.salario_mensal)
-        FROM empregado)
-,(E.salario_semanal * 48) as Salario_Anual
-from empregado E
-where E.cod_armazem = (
-        select A.cod_armazem
-        from armazem A
-        where A.nome like 'Parafusos'
+SELECT (SELECT AVG(E.salario_semanal)
+        FROM empregado) AS media_salario_semanal
+,(E.salario_semanal * 60) AS Salario_Anual
+FROM empregado E
+WHERE E.cod_armazem = (
+        SELECT A.cod_armazem
+        FROM armazem A
+        WHERE A.nome like 'Parafusos'
 );
 
 --b)
@@ -40,27 +40,31 @@ SELECT cod_produto
 FROM armazem_produto APB
 WHERE APA.cod_armazem = APB.cod_armazem
 );
+
 --d)
 
-with data_estado as (
-select A.cod_armazem, A.nome, A.cidade, OC.data_entrega,OC.estado from armazem A
-INNER JOIN Empregado E ON E.cod_armazem = A.cod_armazem
-INNER JOIN Ordem_Compra OC ON OC.cod_empregado = E.cod_empregado
-where (OC.data_entrega BETWEEN '01/03/2018' AND '15/10/2018'))
-select DE.cod_armazem
-from data_estado DE
-Group by DE.cod_armazem
-HAVING
-    COUNT(*) = (
-        SELECT
-            MAX(COUNT(*) )
-        FROM
-            data_estado DE1
-        WHERE
-            DE1.estado = 2 and DE1.cidade Like 'Porto'
-        GROUP BY
-            DE1.cod_armazem
-    );
+SELECT *
+FROM ARMAZEM WHERE cod_armazem IN (
+         SELECT cod_armazem FROM(
+                            SELECT A.cod_armazem ,COUNT(*) AS NUM_VENDAS
+                            FROM ORDEMCOMPRA OC, ARMAZEM A, Empregado Emp
+                            WHERE OC.cod_empregado = Emp.cod_empregado
+                                              AND Emp.cod_armazem = A.cod_armazem
+                                              AND OC.ESTADO = 2
+                            GROUP BY A.cod_armazem
+                            HAVING COUNT(*) > (
+                                            SELECT MAX(NUM_VENDAS) FROM(
+                                                                   SELECT COUNT(*) AS NUM_VENDAS, A.cod_armazem
+                                                                   FROM ORDEMCOMPRA OC, ARMAZEM A, Empregado Emp
+                                                                   WHERE OC.cod_empregado = Emp.cod_empregado
+                                                                                AND Emp.cod_armazem = A.cod_armazem
+                                                                                AND A.cidade = 'Porto' AND OC.data_compra BETWEEN TO_DATE('2018-03-01', 'YYYY-MM-DD')
+                                                                                AND TO_DATE('2018-10-15', 'YYYY-MM-DD')
+                                                                                AND OC.estado = 2
+                                                                   GROUP BY A.cod_armazem
+                                                                   ORDER BY (cod_armazem)) TEMP)));
+
+
 
 --e)
 SELECT nome
@@ -131,14 +135,12 @@ WHERE PP.cod_produto = P.cod_produto
 GROUP BY PP.mes, PP.cod_produto, P.descricao, P.unidade_medida, P.preco
 ORDER BY PP.mes;
 
-
-
 --i)
 SELECT *
 FROM ordem_compra
 WHERE TO_CHAR(data_compra,'MM') BETWEEN 6 AND 8
     AND TO_CHAR(data_compra,'YYYY') = 2018
-    AND estado = 2
+    AND estado = 3
     AND (cast(data_entrega AS DATE) - cast(data_compra AS DATE)) > 10
     AND TO_CHAR(data_compra,'HH') <10;
 --j)
