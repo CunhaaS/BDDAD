@@ -139,6 +139,7 @@ INSERT INTO armazem_produto VALUES(1,12,56,15,2,2);
 INSERT INTO armazem_produto VALUES(2,6,78,25,1,1);
 INSERT INTO armazem_produto VALUES(2,7,90,25,1,2);
 INSERT INTO armazem_produto VALUES(2,8,234,100,2,1);
+INSERT INTO armazem_produto VALUES(3,1,679,170,2,1);
 INSERT INTO armazem_produto VALUES(3,9,76,10,1,1);
 INSERT INTO armazem_produto VALUES(3,10,240,100,1,1);
 INSERT INTO armazem_produto VALUES(3,11,30,20,2,1);
@@ -173,7 +174,7 @@ INSERT INTO ordem_compra VALUES(12,6,6,TO_TIMESTAMP('13-01-2018 14:10','dd-mm-yy
 INSERT INTO ordem_compra VALUES(13,6,6,TO_TIMESTAMP('26-07-2018 08:10','dd-mm-yyyy hh24:mi'),126,TO_TIMESTAMP('10-08-2018 17:30','dd-mm-yyyy hh24:mi'),2);
 
 --ordens de compra de um produto
-INSERT INTO ordem_compra_produto VALUES(1,43,1,1700,20);
+INSERT INTO ordem_compra_produto VALUES(1,43,1,1700,22);
 INSERT INTO ordem_compra_produto VALUES(2,2,2,330,10);
 INSERT INTO ordem_compra_produto VALUES(3,3,3,432,5);
 INSERT INTO ordem_compra_produto VALUES(4,5,4,1100,30);
@@ -185,3 +186,4 @@ INSERT INTO ordem_compra_produto VALUES(9,12,9,420,10);
 INSERT INTO ordem_compra_produto VALUES(10,10,1,2000,15);
 INSERT INTO ordem_compra_produto VALUES(11,8,11,7000,32);
 INSERT INTO ordem_compra_produto VALUES(12,1,12,126,25);
+INSERT INTO ordem_compra_produto VALUES(13,78,1,89,25);

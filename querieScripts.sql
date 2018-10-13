@@ -1,5 +1,5 @@
 --a)
-select avg(E.salario_semanal), (E.salario_semanal * 48) as Salario_Anual 
+select AVG(salario_mensal),(E.salario_semanal * 48) as Salario_Anual 
 from empregado E
 where E.cod_armazem = (
         select A.cod_armazem 
@@ -69,9 +69,17 @@ WHERE cod_produto IN (SELECT cod_produto
                                           GROUP BY cod_produto));
 --g)
 
-
-
-
+SELECT corredor
+FROM armazem_produto AP
+WHERE cod_produto IN(SELECT cod_produto
+                    FROM ordem_compra_produto
+                    WHERE desconto_pedido > 20
+                    GROUP BY cod_produto
+                    HAVING COUNT(nr_ordem) = (SELECT MAX(COUNT(nr_ordem))
+                                              FROM ordem_compra_produto
+                                              WHERE desconto_pedido > 20
+                                              GROUP BY cod_produto));
+                            
 --h)
 
 
