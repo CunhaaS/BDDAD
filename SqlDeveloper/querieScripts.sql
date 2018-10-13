@@ -1,12 +1,12 @@
 --a)
-select (SELECT AVG(E.salario_mensal)
+SELECT (SELECT AVG(E.salario_mensal)
         FROM empregado)
-,(E.salario_semanal * 48) as Salario_Anual
-from empregado E
-where E.cod_armazem = (
-        select A.cod_armazem
-        from armazem A
-        where A.nome like 'Parafusos'
+,(E.salario_semanal * 60) as Salario_Anual
+FROM empregado E
+WHERE E.cod_armazem = (
+        SELECT A.cod_armazem
+        FROM armazem A
+        WHERE A.nome like 'Parafusos'
 );
 
 --b)
@@ -40,27 +40,26 @@ SELECT cod_produto
 FROM armazem_produto APB
 WHERE APA.cod_armazem = APB.cod_armazem
 );
+
 --d)
 
-with data_estado as (
-select A.cod_armazem, A.nome, A.cidade, OC.data_entrega,OC.estado from armazem A
-INNER JOIN Empregado E ON E.cod_armazem = A.cod_armazem
-INNER JOIN Ordem_Compra OC ON OC.cod_empregado = E.cod_empregado
-where (OC.data_entrega BETWEEN '01/03/2018' AND '15/10/2018'))
-select DE.cod_armazem
-from data_estado DE
-Group by DE.cod_armazem
-HAVING
-    COUNT(*) = (
-        SELECT
-            MAX(COUNT(*) )
-        FROM
-            data_estado DE1
-        WHERE
-            DE1.estado = 2 and DE1.cidade Like 'Porto'
-        GROUP BY
-            DE1.cod_armazem
-    );
+    SELECT DISTINCT(nome), cod_armazem, morada, cidade
+    FROM (SELECT a.* FROM armazem a
+    INNER JOIN empregado e ON a.cod_armazem = e.cod_armazem
+    INNER JOIN Ordem_compra oc ON oc.cod_empregado = e.cod_empregado
+    WHERE UPPER(cidade) NOT LIKE 'PORTO' AND (SELECT Count(*) AS numero_total_ordem_compra
+                                               FROM  Ordem_compra o
+                                               INNER JOIN Empregado e ON o.cod_empregado = e.cod_empregado
+                                               INNER JOIN armazem a ON e.cod_armazem = a.cod_armazem
+                                               WHERE estado = 2 AND TO_CHAR(oc.data_compra,'DD-MM-YYYY') BETWEEN '01/03/2018'
+                                               AND '15/10/2018' GROUP BY e.cod_empregado) > (SELECT Count(*) AS numero_total_ordem_compras
+                                                                                             FROM  Ordem_compra o
+                                                                                             INNER JOIN Empregado e ON o.cod_empregado = e.cod_empregado
+                                                                                             INNER JOIN armazem a ON e.cod_armazem = a.cod_armazem
+                                                                                             WHERE UPPER(a.cidade) LIKE 'PORTO'
+                                                                                                AND TO_CHAR(oc.data_compra,'DD-MM-YYYY') BETWEEN '01/03/2018'
+                                                                                                AND '15/10/2018' GROUP BY a.cidade));
+
 
 --e)
 SELECT nome
@@ -130,8 +129,6 @@ FROM (
 WHERE PP.cod_produto = P.cod_produto
 GROUP BY PP.mes, PP.cod_produto, P.descricao, P.unidade_medida, P.preco
 ORDER BY PP.mes;
-
-
 
 --i)
 SELECT *
