@@ -28,7 +28,7 @@ INNER JOIN armazem A ON A.cod_armazem = APA.cod_armazem
 WHERE NOT EXISTS(
                 SELECT cod_produto
                  FROM armazem_produto
-                 WHERE cod_armazem = (SELECT cod_armazem AS cod_armazem_empregados
+                 WHERE cod_armazem IN (SELECT cod_armazem AS cod_armazem_empregados
                                       FROM empregado
                                       GROUP BY cod_armazem
                                       HAVING COUNT(cod_empregado) = (SELECT MAX(COUNT(cod_empregado))
