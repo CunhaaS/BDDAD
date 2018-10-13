@@ -1,5 +1,5 @@
 --a)
-SELECT (SELECT AVG(E.salario_mensal)
+SELECT (SELECT AVG(E.salario_semanal)
         FROM empregado)
 ,(E.salario_semanal * 60) as Salario_Anual
 FROM empregado E
