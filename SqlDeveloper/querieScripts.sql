@@ -6,8 +6,7 @@ FROM empregado E
 WHERE E.cod_armazem = (
         SELECT A.cod_armazem
         FROM armazem A
-        WHERE A.nome like 'Parafusos'
-);
+        WHERE A.nome like 'Parafusos');
 
 --b)
 SELECT *
