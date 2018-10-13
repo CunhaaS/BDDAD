@@ -1,8 +1,10 @@
 --a)
-select AVG(salario_mensal),(E.salario_semanal * 48) as Salario_Anual 
+select (SELECT AVG(E.salario_mensal)
+        FROM empregado)
+,(E.salario_semanal * 48) as Salario_Anual
 from empregado E
 where E.cod_armazem = (
-        select A.cod_armazem 
+        select A.cod_armazem
         from armazem A
         where A.nome like 'Parafusos'
 );
@@ -45,7 +47,7 @@ select A.cod_armazem, A.nome, A.cidade, OC.data_entrega,OC.estado from armazem A
 INNER JOIN Empregado E ON E.cod_armazem = A.cod_armazem
 INNER JOIN Ordem_Compra OC ON OC.cod_empregado = E.cod_empregado
 where (OC.data_entrega BETWEEN '01/03/2018' AND '15/10/2018'))
-select DE.cod_armazem 
+select DE.cod_armazem
 from data_estado DE
 Group by DE.cod_armazem
 HAVING
@@ -107,7 +109,7 @@ WHERE cod_produto IN(SELECT cod_produto
                                               FROM ordem_compra_produto
                                               WHERE desconto_pedido > 20
                                               GROUP BY cod_produto));
-                            
+
 --h)
 SELECT COUNT(PP.cod_produto) as quantidade, PP.mes, PP.cod_produto, P.descricao, P.unidade_medida, P.preco
 FROM (
@@ -134,7 +136,7 @@ ORDER BY PP.mes;
 --i)
 SELECT *
 FROM ordem_compra
-WHERE TO_CHAR(data_compra,'MM') BETWEEN 6 AND 8 
+WHERE TO_CHAR(data_compra,'MM') BETWEEN 6 AND 8
     AND TO_CHAR(data_compra,'YYYY') = 2018
     AND estado = 2
     AND (cast(data_entrega AS DATE) - cast(data_compra AS DATE)) > 10
