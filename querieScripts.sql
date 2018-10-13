@@ -8,9 +8,17 @@ where E.cod_armazem = (
 );
 
 --b)
-
-
-
+SELECT *
+FROM ordem_compra
+WHERE estado = 3
+AND cod_fornecedor NOT IN (
+    SELECT cod_fornecedor
+    FROM fornecedor_produto
+    WHERE desconto = (
+        SELECT MAX(desconto)
+        FROM fornecedor_produto
+    )
+);
 
 --c)
 SELECT DISTINCT A.nome
@@ -53,8 +61,28 @@ HAVING
     );
 
 --e)
-
-
+SELECT nome
+FROM empregado
+WHERE cod_empregado IN (
+    SELECT cod_empregado
+    FROM (
+        SELECT COUNT(O.nr_ordem) as numero_de_ordens, E.cod_empregado
+        FROM empregado E, ordem_compra O
+        WHERE E.cod_supervisor IS NULL
+        AND E.cod_empregado = O.cod_empregado
+        GROUP BY E.cod_empregado
+    )
+    WHERE numero_de_ordens > (
+        SELECT COUNT(*)
+        FROM ordem_compra
+        WHERE cod_empregado IN (
+            SELECT cod_empregado
+            FROM empregado
+            WHERE cod_supervisor IS NOT NULL
+            AND salario_semanal*4 BETWEEN 1000 AND 3000
+        )
+    )
+);
 
 
 --f)
@@ -73,7 +101,25 @@ WHERE cod_produto IN (SELECT cod_produto
 
 
 --h)
-
+SELECT COUNT(PP.cod_produto) as quantidade, PP.mes, PP.cod_produto, P.descricao, P.unidade_medida, P.preco
+FROM (
+    SELECT OCP.cod_produto, EXTRACT(month FROM OC.data_compra) as mes
+    FROM ordem_compra OC, ordem_compra_produto OCP
+    WHERE EXTRACT(year FROM OC.data_compra) = 2018
+    AND OC.nr_ordem = OCP.nr_ordem
+    AND OCP.cod_produto IN(
+        SELECT cod_produto
+        FROM produto
+        WHERE cod_produto IN (
+            SELECT cod_produto
+            FROM armazem_produto
+            WHERE stock*1.5 > stock_minimo
+        )
+    )
+) PP, produto P
+WHERE PP.cod_produto = P.cod_produto
+GROUP BY PP.mes, PP.cod_produto, P.descricao, P.unidade_medida, P.preco
+ORDER BY PP.mes;
 
 
 
